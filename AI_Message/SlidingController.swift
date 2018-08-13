@@ -91,7 +91,7 @@ class SlidingController: UICollectionViewController, UICollectionViewDelegateFlo
         separateLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     
     }
-    
+    //message is handle here
     @objc func handleSend() {
         
         let messageDataBase = Database.database().reference().child("Message")
