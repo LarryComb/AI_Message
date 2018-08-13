@@ -7,14 +7,30 @@
 //
 
 import UIKit
+import Firebase
 
-class ViewController: UIViewController {
-
+class ViewController: UICollectionViewController {
     override func viewDidLoad() {
+        
+        
+        
+        
+       /* var ref: DatabaseReference!
+        
+        ref = Database.database().reference(fromURL: "https://kissiko-c6b68.firebaseio.com/")
+
+        ref.updateChildValues(["somevaules": 12345])
+        */
+        
+        //let myDataBase = Database.database().reference()
+        //myDataBase.setValue("VIEW Controller Page")
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-
+        
+        navigationItem.title = "Kissiko"
+        //setupInputComponents()
+   
+    
 }
-
+    
+}

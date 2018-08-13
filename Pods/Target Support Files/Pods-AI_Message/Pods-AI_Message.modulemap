@@ -1,0 +1,6 @@
+framework module Pods_AI_Message {
+  umbrella header "Pods-AI_Message-umbrella.h"
+
+  export *
+  module * { export * }
+}
