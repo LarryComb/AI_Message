@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let myDataBase = Database.database().reference()
         myDataBase.setValue("New Data")
         */
-  //      let randomViewController = UIViewController()
-  //      randomViewController.view.backgroundColor = .purple
+        //let randomViewController = UIViewController()
+        //randomViewController.view.backgroundColor = .purple
         let layout = UICollectionViewFlowLayout()
         let slidingController = SlidingController(collectionViewLayout:layout)
         window?.rootViewController = slidingController
