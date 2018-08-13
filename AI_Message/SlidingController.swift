@@ -116,6 +116,7 @@ class SlidingController: UICollectionViewController, UICollectionViewDelegateFlo
   
     
     
+    //This is for gcoomingintt
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
         

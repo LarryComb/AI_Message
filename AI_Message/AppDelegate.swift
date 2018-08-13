@@ -22,10 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         FirebaseApp.configure()
 
-        /*
-        let myDataBase = Database.database().reference()
-        myDataBase.setValue("New Data")
-        */
+        
         //let randomViewController = UIViewController()
         //randomViewController.view.backgroundColor = .purple
         let layout = UICollectionViewFlowLayout()

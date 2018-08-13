@@ -12,8 +12,11 @@ import Firebase
 class ViewController: UICollectionViewController {
     override func viewDidLoad() {
         
-        
-        
+        navigationItem.title = "Hello"
+        /*
+         let myDataBase = Database.database().reference()
+         myDataBase.setValue("New Data")
+         */
         
        /* var ref: DatabaseReference!
         
