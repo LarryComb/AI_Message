@@ -175,7 +175,7 @@ final class ChatViewController: MessagesViewController {
     
     let imageName = [UUID().uuidString, String(Date().timeIntervalSince1970)].joined()
     storage.child(channelID).child(imageName).putData(data, metadata: metadata) { meta, error in
-      completion(meta?.downloadURL())
+        completion(meta?.downloadURL())
     }
   }
   
@@ -328,38 +328,40 @@ extension ChatViewController: MessagesLayoutDelegate {
 // MARK: - MessagesDataSource
 
 extension ChatViewController: MessagesDataSource {
-  
-  // 1
-  func currentSender() -> Sender {
-    return Sender(id: user.uid, displayName: AppSettings.displayName)
-  }
-  
-  // 2
-  func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
-    return messages.count
-  }
-  
-  // 3
-  func messageForItem(at indexPath: IndexPath,
-                      in messagesCollectionView: MessagesCollectionView) -> MessageType {
     
-    return messages[indexPath.section]
-  }
-  
-  // 4
-  func cellTopLabelAttributedText(for message: MessageType,
-                                  at indexPath: IndexPath) -> NSAttributedString? {
+    // 1
+    func currentSender() -> Sender {
+        return Sender(id: user.uid, displayName: AppSettings.displayName)
+    }
     
-    let name = message.sender.displayName
-    return NSAttributedString(
-      string: name,
-      attributes: [
-        .font: UIFont.preferredFont(forTextStyle: .caption1),
-        .foregroundColor: UIColor(white: 0.3, alpha: 1)
-      ]
-    )
-  }
+    // 2
+    func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
+        return messages.count
+    }
+    
+    // 3
+    func messageForItem(at indexPath: IndexPath,
+                        in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        
+        return messages[indexPath.section]
+    }
+    
+    // 4
+    func cellTopLabelAttributedText(for message: MessageType,
+                                    at indexPath: IndexPath) -> NSAttributedString? {
+        
+        let name = message.sender.displayName
+        return NSAttributedString(
+            string: name,
+            attributes: [
+                .font: UIFont.preferredFont(forTextStyle: .caption1),
+                .foregroundColor: UIColor(white: 0.3, alpha: 1)
+            ]
+        )
+    }
 }
+
+
 
 
 // MARK: - MessageInputBarDelegate

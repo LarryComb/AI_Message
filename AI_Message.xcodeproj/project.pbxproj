@@ -13,11 +13,25 @@
 		461AA0C3210EC1EF00B720F9 /* IQKeyboardManagerSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 461AA0C0210EC1EE00B720F9 /* IQKeyboardManagerSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		461AA0C921115B4100B720F9 /* ChatMessageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461AA0C821115B4100B720F9 /* ChatMessageBox.swift */; };
 		461AA0CB2117DF1F00B720F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 461AA0CA2117DF1F00B720F9 /* GoogleService-Info.plist */; };
+		46445A622133999C00060BD6 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A612133999C00060BD6 /* AppController.swift */; };
+		46445A6421339A4600060BD6 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A6321339A4600060BD6 /* AppSettings.swift */; };
+		46445A6721339AC900060BD6 /* UICollectionView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A6621339AC900060BD6 /* UICollectionView+Additions.swift */; };
+		46445A6921339B1A00060BD6 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A6821339B1A00060BD6 /* UIColor+Additions.swift */; };
+		46445A6B21339B7500060BD6 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A6A21339B7500060BD6 /* UIImage+Additions.swift */; };
+		46445A6D21339BBC00060BD6 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A6C21339BBC00060BD6 /* UIView+Additions.swift */; };
+		46445A7021339C2700060BD6 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A6F21339C2700060BD6 /* Channel.swift */; };
+		46445A7221339C7300060BD6 /* DatabaseRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A7121339C7300060BD6 /* DatabaseRepresentation.swift */; };
+		46445A7821339D4300060BD6 /* ChannelsViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A7721339D4300060BD6 /* ChannelsViewContoller.swift */; };
+		46445A7C21339E0C00060BD6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A7B21339E0C00060BD6 /* LoginViewController.swift */; };
+		46445A7E21339E4600060BD6 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A7D21339E4600060BD6 /* NavigationController.swift */; };
+		46445A802133C5B100060BD6 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46445A7F2133C5B100060BD6 /* LoginViewController.xib */; };
+		46445A822133C74500060BD6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A812133C74500060BD6 /* Message.swift */; };
+		46445A842133C76200060BD6 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46445A832133C76200060BD6 /* ChatViewController.swift */; };
+		46445A862133C77000060BD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46445A852133C77000060BD6 /* Assets.xcassets */; };
+		46445A882133C7D400060BD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46445A872133C7D400060BD6 /* LaunchScreen.storyboard */; };
 		469D880B2105805D0063C209 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D880A2105805D0063C209 /* AppDelegate.swift */; };
 		469D880D2105805D0063C209 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D880C2105805D0063C209 /* ViewController.swift */; };
 		469D88102105805D0063C209 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469D880E2105805D0063C209 /* Main.storyboard */; };
-		469D88122105805F0063C209 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469D88112105805F0063C209 /* Assets.xcassets */; };
-		469D88152105805F0063C209 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469D88132105805F0063C209 /* LaunchScreen.storyboard */; };
 		469D881E210580820063C209 /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469D881C210580820063C209 /* SVProgressHUD.framework */; };
 		469D881F210580820063C209 /* SVProgressHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 469D881C210580820063C209 /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		469D8820210580820063C209 /* VisualRecognitionV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469D881D210580820063C209 /* VisualRecognitionV3.framework */; };
@@ -45,12 +59,26 @@
 		461AA0C0210EC1EE00B720F9 /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IQKeyboardManagerSwift.framework; sourceTree = "<group>"; };
 		461AA0C821115B4100B720F9 /* ChatMessageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageBox.swift; sourceTree = "<group>"; };
 		461AA0CA2117DF1F00B720F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		46445A612133999C00060BD6 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		46445A6321339A4600060BD6 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		46445A6621339AC900060BD6 /* UICollectionView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Additions.swift"; sourceTree = "<group>"; };
+		46445A6821339B1A00060BD6 /* UIColor+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
+		46445A6A21339B7500060BD6 /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
+		46445A6C21339BBC00060BD6 /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
+		46445A6F21339C2700060BD6 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		46445A7121339C7300060BD6 /* DatabaseRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepresentation.swift; sourceTree = "<group>"; };
+		46445A7721339D4300060BD6 /* ChannelsViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsViewContoller.swift; sourceTree = "<group>"; };
+		46445A7B21339E0C00060BD6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		46445A7D21339E4600060BD6 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		46445A7F2133C5B100060BD6 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		46445A812133C74500060BD6 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		46445A832133C76200060BD6 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		46445A852133C77000060BD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../RWRC/Starter-RWRC/RWRC/Supporting Files/Assets.xcassets"; sourceTree = "<group>"; };
+		46445A872133C7D400060BD6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		469D88072105805D0063C209 /* AI_Message.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AI_Message.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		469D880A2105805D0063C209 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		469D880C2105805D0063C209 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		469D880F2105805D0063C209 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		469D88112105805F0063C209 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		469D88142105805F0063C209 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		469D88162105805F0063C209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469D881C210580820063C209 /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = "<group>"; };
 		469D881D210580820063C209 /* VisualRecognitionV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VisualRecognitionV3.framework; sourceTree = "<group>"; };
@@ -74,6 +102,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46445A5E213398B200060BD6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46445A612133999C00060BD6 /* AppController.swift */,
+				469D880A2105805D0063C209 /* AppDelegate.swift */,
+				46445A6321339A4600060BD6 /* AppSettings.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		46445A6521339A8100060BD6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				46445A6621339AC900060BD6 /* UICollectionView+Additions.swift */,
+				46445A6821339B1A00060BD6 /* UIColor+Additions.swift */,
+				46445A6A21339B7500060BD6 /* UIImage+Additions.swift */,
+				46445A6C21339BBC00060BD6 /* UIView+Additions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		46445A6E21339C0200060BD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				46445A6F21339C2700060BD6 /* Channel.swift */,
+				46445A7121339C7300060BD6 /* DatabaseRepresentation.swift */,
+				46445A812133C74500060BD6 /* Message.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		46445A7521339CD900060BD6 /* Supporting Files  */ = {
+			isa = PBXGroup;
+			children = (
+				46445A852133C77000060BD6 /* Assets.xcassets */,
+				469D88162105805F0063C209 /* Info.plist */,
+				461AA0CA2117DF1F00B720F9 /* GoogleService-Info.plist */,
+				469D880E2105805D0063C209 /* Main.storyboard */,
+				46445A872133C7D400060BD6 /* LaunchScreen.storyboard */,
+			);
+			name = "Supporting Files ";
+			sourceTree = "<group>";
+		};
+		46445A7621339CFD00060BD6 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46445A7721339D4300060BD6 /* ChannelsViewContoller.swift */,
+				46445A832133C76200060BD6 /* ChatViewController.swift */,
+				46445A7B21339E0C00060BD6 /* LoginViewController.swift */,
+				46445A7F2133C5B100060BD6 /* LoginViewController.xib */,
+				46445A7D21339E4600060BD6 /* NavigationController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		469D87FE2105805D0063C209 = {
 			isa = PBXGroup;
 			children = (
@@ -98,15 +181,14 @@
 		469D88092105805D0063C209 /* AI_Message */ = {
 			isa = PBXGroup;
 			children = (
-				469D880A2105805D0063C209 /* AppDelegate.swift */,
+				46445A5E213398B200060BD6 /* Controllers */,
 				469D880C2105805D0063C209 /* ViewController.swift */,
 				461AA0BE210E746800B720F9 /* SlidingController.swift */,
 				461AA0C821115B4100B720F9 /* ChatMessageBox.swift */,
-				469D880E2105805D0063C209 /* Main.storyboard */,
-				469D88112105805F0063C209 /* Assets.xcassets */,
-				469D88132105805F0063C209 /* LaunchScreen.storyboard */,
-				469D88162105805F0063C209 /* Info.plist */,
-				461AA0CA2117DF1F00B720F9 /* GoogleService-Info.plist */,
+				46445A6521339A8100060BD6 /* Extensions */,
+				46445A6E21339C0200060BD6 /* Models */,
+				46445A7521339CD900060BD6 /* Supporting Files  */,
+				46445A7621339CFD00060BD6 /* View Controllers */,
 			);
 			path = AI_Message;
 			sourceTree = "<group>";
@@ -189,9 +271,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				469D88152105805F0063C209 /* LaunchScreen.storyboard in Resources */,
+				46445A802133C5B100060BD6 /* LoginViewController.xib in Resources */,
 				461AA0CB2117DF1F00B720F9 /* GoogleService-Info.plist in Resources */,
-				469D88122105805F0063C209 /* Assets.xcassets in Resources */,
+				46445A862133C77000060BD6 /* Assets.xcassets in Resources */,
+				46445A882133C7D400060BD6 /* LaunchScreen.storyboard in Resources */,
 				469D88102105805D0063C209 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,15 +289,29 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AI_Message/Pods-AI_Message-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -248,10 +345,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46445A6D21339BBC00060BD6 /* UIView+Additions.swift in Sources */,
 				461AA0BF210E746800B720F9 /* SlidingController.swift in Sources */,
+				46445A7021339C2700060BD6 /* Channel.swift in Sources */,
+				46445A822133C74500060BD6 /* Message.swift in Sources */,
+				46445A7221339C7300060BD6 /* DatabaseRepresentation.swift in Sources */,
+				46445A6921339B1A00060BD6 /* UIColor+Additions.swift in Sources */,
+				46445A7E21339E4600060BD6 /* NavigationController.swift in Sources */,
+				46445A622133999C00060BD6 /* AppController.swift in Sources */,
+				46445A6421339A4600060BD6 /* AppSettings.swift in Sources */,
 				461AA0C921115B4100B720F9 /* ChatMessageBox.swift in Sources */,
 				469D880D2105805D0063C209 /* ViewController.swift in Sources */,
+				46445A842133C76200060BD6 /* ChatViewController.swift in Sources */,
+				46445A6721339AC900060BD6 /* UICollectionView+Additions.swift in Sources */,
 				469D880B2105805D0063C209 /* AppDelegate.swift in Sources */,
+				46445A7C21339E0C00060BD6 /* LoginViewController.swift in Sources */,
+				46445A6B21339B7500060BD6 /* UIImage+Additions.swift in Sources */,
+				46445A7821339D4300060BD6 /* ChannelsViewContoller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,14 +374,6 @@
 				469D880F2105805D0063C209 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		469D88132105805F0063C209 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				469D88142105805F0063C209 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -328,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -383,7 +485,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

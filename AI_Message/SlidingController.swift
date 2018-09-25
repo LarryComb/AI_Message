@@ -5,11 +5,12 @@
 //  Created by Larry  on 7/29/18.
 //  Copyright © 2018 Larry . All rights reserved.
 //
-
+/*
 import UIKit
 import Firebase
 
 class SlidingController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+    
     
     
     lazy var  inputTextField: UITextField = {
@@ -92,11 +93,23 @@ class SlidingController: UICollectionViewController, UICollectionViewDelegateFlo
     
     }
     //message is handle here
+    
+    //var messages = [ChatMessageBox]()
+    
     @objc func handleSend() {
         
         let messageDataBase = Database.database().reference().child("Message")
         let messageDictionary = ["text": inputTextField.text!]
         //messageDataBase.updateChildValues(values)
+        messageDataBase.observe(.childAdded, with: {(DataSnapshot) in
+            
+            //if let dictionary = DataSnapshot.value as? [String: Any] {
+            //let message = ChatMessageBox()
+            //message.setValuesForKeys(dictionary)
+            print(DataSnapshot)
+            //}
+        }, withCancel: nil)
+        
         messageDataBase.childByAutoId().setValue(messageDictionary){
             (error, reference) in
             
@@ -106,24 +119,19 @@ class SlidingController: UICollectionViewController, UICollectionViewDelegateFlo
                 print("Message Saved Success")
                 self.inputTextField.text = ""
             }
-                
-            
         }
-        
-        
     }
 
-  
+   
     
     
     //This is for gcoomingintt
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
-        
         return true
     }
     
     
     
-}
+}*/
 

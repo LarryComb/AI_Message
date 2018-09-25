@@ -31,23 +31,26 @@ import MessageKit
 import FirebaseFirestore
 
 struct Message: MessageType {
+   
+    
   
-  let id: String?
-  let content: String
-  let sentDate: Date
-  let sender: Sender
-  
-  var data: MessageData {
-    if let image = image {
-      return .photo(image)
-    } else {
-      return .text(content)
+    let id: String?
+    let content: String
+    let sentDate: Date
+    let sender: Sender
+    
+    var data: MessageData {
+        if let image = image {
+            return .photo(image)
+        } else {
+            return .text(content)
+        }
     }
-  }
-  
-  var messageId: String {
-    return id ?? UUID().uuidString
-  }
+    
+    var messageId: String {
+        return id ?? UUID().uuidString
+    }
+
   
   var image: UIImage? = nil
   var downloadURL: URL? = nil

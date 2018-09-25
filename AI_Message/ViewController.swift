@@ -6,13 +6,19 @@
 //  Copyright © 2018 Larry . All rights reserved.
 //
 
+/*
 import UIKit
 import Firebase
 
 class ViewController: UICollectionViewController {
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         navigationItem.title = "Hello"
+        
+       // observeMessages()
+        
+        
         /*
          let myDataBase = Database.database().reference()
          myDataBase.setValue("New Data")
@@ -28,12 +34,13 @@ class ViewController: UICollectionViewController {
         //let myDataBase = Database.database().reference()
         //myDataBase.setValue("VIEW Controller Page")
         
-        super.viewDidLoad()
         
-        navigationItem.title = "Kissiko"
+        
+       
         //setupInputComponents()
    
     
-}
+   }
     
-}
+    
+}*/
