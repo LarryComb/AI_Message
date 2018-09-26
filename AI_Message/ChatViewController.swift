@@ -186,12 +186,11 @@ final class ChatViewController: MessagesViewController {
   
   private func sendPhoto(_ image: UIImage) {
     isSendingPhoto = true
-   // let apiKey = "5ad135e71c4dba7962d2293bf9e960c973f8ebfc"
-   // let version = "2018-09-24"
+   
     
     uploadImage(image, to: channel) { [weak self] url in
       guard let `self` = self else {
-       // let visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
+       
         
         
         
