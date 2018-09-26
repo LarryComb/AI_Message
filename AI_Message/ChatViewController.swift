@@ -31,9 +31,14 @@ import Photos
 import Firebase
 import MessageKit
 import FirebaseFirestore
+import VisualRecognitionV3
+
 
 final class ChatViewController: MessagesViewController {
   
+  
+    
+    
   private let db = Firestore.firestore()
   private var reference: CollectionReference?
 
@@ -181,9 +186,15 @@ final class ChatViewController: MessagesViewController {
   
   private func sendPhoto(_ image: UIImage) {
     isSendingPhoto = true
+   // let apiKey = "5ad135e71c4dba7962d2293bf9e960c973f8ebfc"
+   // let version = "2018-09-24"
     
     uploadImage(image, to: channel) { [weak self] url in
       guard let `self` = self else {
+       // let visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
+        
+        
+        
         return
       }
       self.isSendingPhoto = false
