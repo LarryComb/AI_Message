@@ -28,13 +28,18 @@
 
 import UIKit
 import Photos
+import BMSCore
 import Firebase
+import Assistant
 import MessageKit
+import VisualRecognition
 import FirebaseFirestore
-import VisualRecognitionV3
+import NVActivityIndicatorView
 
 
-final class ChatViewController: MessagesViewController {
+
+
+class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
   
   
     
@@ -42,10 +47,20 @@ final class ChatViewController: MessagesViewController {
   private let db = Firestore.firestore()
   private var reference: CollectionReference?
 
+  // Message State
   private var messages: [Message] = []
   private var messageListener: ListenerRegistration?
-
+    
+  var now = Date()
+    
+  // Conersation SDK
+  var assistant: Assistant?
+  var context: Context?
   
+  // Watson Assistant Workspace
+  var workspaceID: String?
+
+  // User
   private let user: User
   private let channel: Channel
   
@@ -83,6 +98,18 @@ final class ChatViewController: MessagesViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    // Instantiate Assistant Instance
+    self.instantiateAssistant()
+    
+    // Instantiate activity indicator
+    self.instantiateActivityIndicator()
+    
+    // Registers data sources and delegates + setup views
+    self.setupMessagesKit()
+    
+    
+
     
     guard let id = channel.id else {
       navigationController?.popViewController(animated: true)
@@ -186,27 +213,64 @@ final class ChatViewController: MessagesViewController {
   
   private func sendPhoto(_ image: UIImage) {
     isSendingPhoto = true
-   
+   let apiKey = "CHqCsp-NH68f-sV7QnQAX51ecBE_HWP6YvRRaSKI6gJz"
+    // API Version Date to initialize the Assistant API
+    let version = "2018-10-15"
+    
+    let failure = {(error:Error) in
+        
+        DispatchQueue.main.async {
+            self.navigationItem.title = "Image could not be processed"
+            //button.isEnabled = true
+        }
+        
+        
+        print(error)
+        
+    }
+    
+    //let recogURL = URL(string: "https://unsplash.it/50/100?image=\(randomNumber)")!
     
     uploadImage(image, to: channel) { [weak self] url in
-      guard let `self` = self else {
-       
+      /*guard let _ = self else {
+        let visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
         
-        
+        visualRecognition.classify(image: image, failure: failure) { classifiedImages in
+            
+            if let classifiedImage = classifiedImages.images.first {
+                print(classifiedImage.classifiers)
+                
+                if let classification = classifiedImage.classifiers.first?.classes.first {
+                    DispatchQueue.main.async {
+                        //self.navigationItem.title = classification
+                        //button.isEnabled = true
+                    }
+                }
+                 print("Successful IBM Match")
+                
+            }else{
+                DispatchQueue.main.async {
+                    //self.navigationItem.title = "Could not be determined"
+                    //button.isEnabled = true
+                }
+            }
+            
+            
+        }
         
         return
-      }
-      self.isSendingPhoto = false
+      }*/
+        self?.isSendingPhoto = false
       
       guard let url = url else {
         return
       }
       
-      var message = Message(user: self.user, image: image)
+        var message = Message(user: (self?.user)!, image: image)
       message.downloadURL = url
       
-      self.save(message)
-      self.messagesCollectionView.scrollToBottom()
+        self?.save(message)
+        self?.messagesCollectionView.scrollToBottom()
     }
   }
   
@@ -388,6 +452,9 @@ extension ChatViewController: MessageInputBarDelegate {
     
     // 3
     inputBar.inputTextView.text = ""
+    
+    // send to watson
+    sendMessageToWatson(text)
   }
 
 }
@@ -425,6 +492,288 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
   }
-
+    // Method to set up the activity progress indicator view
+    func instantiateActivityIndicator() {
+        let size: CGFloat = 50
+        let x = self.view.frame.width/2 - size
+        let y = self.view.frame.height/2 - size
+        
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        
+        _ = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.ballScaleRipple)
+    }
+    
+    // Method to set up messages kit data sources and delegates + configure
+    func setupMessagesKit() {
+        
+        // Register datasources and delegates
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+        //messagesCollectionView.messageCellDelegate = self
+        messageInputBar.delegate = self
+        
+        // Configure views
+        messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+        scrollsToBottomOnKeybordBeginsEditing = true // default false
+        maintainPositionOnKeyboardFrameChanged = true // default false
+    }
   
+    func instantiateAssistant() {
+        
+        // Start activity indicator
+        startAnimating( message: "Connecting to Kissiko", type: NVActivityIndicatorType.ballScaleRipple)
+        
+        // Create a configuration path for the BMSCredentials.plist file then read in the Watson credentials
+        // from the plist configuration dictionary
+        guard let configurationPath = Bundle.main.path(forResource: "BMSCredentials", ofType: "plist"),
+            let configuration = NSDictionary(contentsOfFile: configurationPath) else {
+                
+                //showAlert(.missingCredentialsPlist)
+                return
+        }
+        
+        
+        // API Version Date to initialize the Assistant API
+        let date = "2018-10-12"
+        
+        // Set the Watson credentials for Assistant service from the BMSCredentials.plist
+        // If using IAM authentication
+        if let apikey = configuration["conversationApikey"] as? String,
+            let url = configuration["conversationUrl"] as? String {
+            
+            // Initialize Watson Assistant object
+            let assistant = Assistant(version: date, apiKey: apikey)
+            
+            // Set the URL for the Assistant Service
+            assistant.serviceURL = url
+            
+            self.assistant = assistant
+            
+            // If using user/pwd authentication
+        } else if let password = configuration["conversationPassword"] as? String,
+            let username = configuration["conversationUsername"] as? String,
+            let url = configuration["conversationUrl"] as? String {
+            
+            // Initialize Watson Assistant object
+            let assistant = Assistant(username: username, password: password, version: date)
+            
+            // Set the URL for the Assistant Service
+            assistant.serviceURL = url
+            
+            self.assistant = assistant
+            
+        } else {
+            showAlert(.missingAssistantCredentials)
+        }
+        
+        // Lets Handle the Workspace creation or selection from here.
+        // If a workspace is found in the plist then use that WorkspaceID that is provided , otherwise
+        // look up one from the service directly, Watson provides a sample so this should work directly
+        if let workspaceID = configuration["workspaceID"] as? String {
+            
+            print("Workspace ID:", workspaceID)
+            
+            // Set the workspace ID Globally
+            self.workspaceID = workspaceID
+            
+            // Ask Watson for its first message
+           retrieveFirstMessage()
+            
+        } else {
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                NVActivityIndicatorPresenter.sharedInstance.setMessage("Checking for Training...")
+            }
+            
+            // Retrieve a list of Workspaces that have been trained and default to the first one
+            // You can define your own WorkspaceID if you have a specific Assistant model you want to work with
+            guard let assistant = assistant else {
+                return
+            }
+            
+            
+          assistant.listWorkspaces(failure: failAssistantWithError, success: workspaceList)
+            
+        }
+    }
+    
+    // Method to start convesation from workspace list
+    func workspaceList(_ list: WorkspaceCollection) {
+        
+        // Lets see if the service has any training model deployed
+        guard let workspace = list.workspaces.first else {
+            showAlert(.noWorkspacesAvailable)
+            return
+        }
+        
+        // Check if we have a workspace ID
+        guard !workspace.workspaceID.isEmpty else {
+            showAlert(.noWorkspaceId)
+            return
+        }
+        
+        // Now we have an WorkspaceID we can ask Watson Assisant for its first message
+        self.workspaceID = workspace.workspaceID
+        
+        // Ask Watson for its first message
+        retrieveFirstMessage()
+        
+    }
+    
+    // Method to handle errors with Watson Assistant
+    func failAssistantWithError(_ error: Error) {
+        showAlert(.error(error.localizedDescription))
+    }
+
+    func showAlert(_ error: AssistantError) {
+        // Log the error to the console
+        print(error)
+        
+        DispatchQueue.main.async {
+            
+            // Stop animating if necessary
+            self.stopAnimating()
+            
+            // If an alert is not currently being displayed
+            if self.presentedViewController == nil {
+                // Set alert properties
+                let alert = UIAlertController(title: error.alertTitle,
+                                              message: error.alertMessage,
+                                              preferredStyle: .alert)
+                // Add an action to the alert
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+                // Show the alert
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func retrieveFirstMessage() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+            NVActivityIndicatorPresenter.sharedInstance.setMessage("Talking to Watson...")
+        }
+        
+        guard let assistant = self.assistant else {
+            showAlert(.missingAssistantCredentials)
+            return
+        }
+        
+        guard let workspace = workspaceID else {
+            showAlert(.noWorkspaceId)
+            return
+        }
+        
+        // Initial assistant message from Watson
+        assistant.message(workspaceID: workspace, failure: failAssistantWithError) { response in
+            
+            for watsonMessage in response.output.text {
+                
+                // Set current context
+                self.context = response.context
+                
+                let message = Message(watsonMessage: watsonMessage)
+                
+                self.save(message)
+
+                DispatchQueue.main.async {
+                    self.stopAnimating()
+                }
+            }
+        }
+    }
+    
+    func sendMessageToWatson ( _ text : String ) {
+        
+        guard let assistant = self.assistant else {
+            showAlert(.missingAssistantCredentials)
+            return
+        }
+        
+        guard let workspace = workspaceID else {
+            showAlert(.noWorkspaceId)
+            return
+        }
+        
+        let cleanText = text
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\n", with: ". ")
+
+        let messageRequest = MessageRequest(input: InputData(text:cleanText), context: self.context)
+        
+        // Call the Assistant API
+        assistant.message(workspaceID: workspace, request: messageRequest, failure: failAssistantWithError) { response in
+            
+            for watsonMessage in response.output.text {
+                guard !watsonMessage.isEmpty else {
+                    continue
+                }
+                // Set current context
+                self.context = response.context
+                let message = Message(watsonMessage: watsonMessage)
+                
+                self.save(message)
+
+                /*
+                DispatchQueue.main.async {
+                    
+                    let attributedText = NSAttributedString(string: watsonMessage, attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.blue])
+                    let id = UUID().uuidString
+                    let message = AssistantMessages(attributedText: attributedText, sender: self.watson, messageId: id, date: Date())
+                    self.messageList.append(message)
+                    inputBar.inputTextView.text = String()
+                    self.messagesCollectionView.insertSections([self.messageList.count - 1])
+                    self.messagesCollectionView.scrollToBottom()
+                }
+                */
+            }
+            
+        }
+
+    }
+
 }
+
+
+
+enum AssistantError: Error, CustomStringConvertible {
+    
+    case invalidCredentials
+    
+    case missingCredentialsPlist
+    
+    case missingAssistantCredentials
+    
+    case noWorkspacesAvailable
+    
+    case error(String)
+    
+    case noWorkspaceId
+    
+    var alertTitle: String {
+        switch self {
+        case .invalidCredentials: return "Invalid Credentials"
+        case .missingCredentialsPlist: return "Missing BMSCredentials.plist"
+        case .missingAssistantCredentials: return "Missing Watson Assistant Credentials"
+        case .noWorkspacesAvailable: return "No Workspaces Available"
+        case .noWorkspaceId: return "No Workspaces Id Provided"
+        case .error: return "An Error Occurred"
+        }
+    }
+    
+    var alertMessage: String {
+        switch self {
+        case .invalidCredentials: return "The provided credentials are invalid."
+        case .missingCredentialsPlist: return "Make sure to follow the steps in the README to create the credentials file."
+        case .missingAssistantCredentials: return "Make sure to follow the steps in the README to create the credentials file."
+        case .noWorkspacesAvailable: return "Be sure to set up a Watson Assistant workspace from the IBM Cloud dashboard."
+        case .noWorkspaceId: return "Be sure to set up a Watson Assistant workspace from the IBM Cloud dashboard."
+        case .error(let msg): return msg
+        }
+    }
+    
+    var description: String {
+        return self.alertTitle + ": " + self.alertMessage
+    }
+}
+

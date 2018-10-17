@@ -61,6 +61,13 @@ struct Message: MessageType {
     sentDate = Date()
     id = nil
   }
+    
+    init(watsonMessage: String) {
+        sender = Sender(id: "watsonID", displayName: "Watson")
+        self.content = watsonMessage
+        sentDate = Date()
+        id = nil
+    }
   
   init(user: User, image: UIImage) {
     sender = Sender(id: user.uid, displayName: AppSettings.displayName)

@@ -1,4 +1,7 @@
 PODS:
+  - BMSAnalyticsAPI (2.2.3)
+  - BMSCore (2.3.5):
+    - BMSAnalyticsAPI (~> 2.2)
   - BoringSSL (10.0.6):
     - BoringSSL/Implementation (= 10.0.6)
     - BoringSSL/Interface (= 10.0.6)
@@ -79,6 +82,11 @@ PODS:
     - gRPC-Core (= 1.14.1)
     - gRPC-RxLibrary (= 1.14.1)
   - GTMSessionFetcher/Core (1.2.0)
+  - IBMWatsonAssistantV1 (0.35.0):
+    - IBMWatsonRestKit (= 1.2.0)
+  - IBMWatsonRestKit (1.2.0)
+  - IBMWatsonVisualRecognitionV3 (0.35.0):
+    - IBMWatsonRestKit (= 1.2.0)
   - leveldb-library (1.20)
   - MessageKit (0.13.1)
   - nanopb (0.3.8):
@@ -86,18 +94,29 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - NVActivityIndicatorView (4.4.0):
+    - NVActivityIndicatorView/Presenter (= 4.4.0)
+  - NVActivityIndicatorView/Presenter (4.4.0)
   - Protobuf (3.6.1)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
+  - BMSCore (~> 2.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Firestore
   - Firebase/Storage (= 4.8.2)
+  - IBMWatsonAssistantV1 (~> 0.35.0)
+  - IBMWatsonVisualRecognitionV3 (~> 0.35.0)
   - MessageKit (= 0.13.1)
+  - NVActivityIndicatorView
+  - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - BMSAnalyticsAPI
+    - BMSCore
     - BoringSSL
     - Firebase
     - FirebaseAnalytics
@@ -113,12 +132,19 @@ SPEC REPOS:
     - gRPC-ProtoRPC
     - gRPC-RxLibrary
     - GTMSessionFetcher
+    - IBMWatsonAssistantV1
+    - IBMWatsonRestKit
+    - IBMWatsonVisualRecognitionV3
     - leveldb-library
     - MessageKit
     - nanopb
+    - NVActivityIndicatorView
     - Protobuf
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
+  BMSAnalyticsAPI: d259379069bb11d2ff365bf5b796a2677dfc3849
+  BMSCore: 446c16a7dbe14b5019751617a00dd947c65cca82
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
   FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
@@ -134,11 +160,16 @@ SPEC CHECKSUMS:
   gRPC-ProtoRPC: 78f976fc6a1eafc0e1f4965c255c313aa0859b1e
   gRPC-RxLibrary: c4c826507ad3c8c8fab6887f153938eb04b86d59
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  IBMWatsonAssistantV1: 21fc1465e3cc7dde37b0062f2793963d3a898014
+  IBMWatsonRestKit: b05aa0aa912724accbf6ed9475654602886f0782
+  IBMWatsonVisualRecognitionV3: ea6bfae0e9f06d26d940944a9872b0f56dc84e0e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MessageKit: fc74d71d9b05385138d47b3a4b7beef5c687daf1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: c809edb6810e68e47f13614042f98872adcb4d9e
+PODFILE CHECKSUM: bfc48f99523f47bcbb65f38bc4123b6f9dd6e655
 
 COCOAPODS: 1.5.3
