@@ -63,7 +63,7 @@ struct Message: MessageType {
   }
     
     init(watsonMessage: String) {
-        sender = Sender(id: "watsonID", displayName: "Watson")
+        sender = Sender(id: "watsonID", displayName: "KISSIKO")
         self.content = watsonMessage
         sentDate = Date()
         id = nil
