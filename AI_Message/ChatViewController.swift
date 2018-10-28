@@ -128,6 +128,19 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
         self.handleDocumentChange(change)
       }
     }
+    
+    
+     navigationItem.largeTitleDisplayMode = .never
+     
+     maintainPositionOnKeyboardFrameChanged = true
+     //messageInputBar.inputTextView.tintColor = .primary
+     messageInputBar.sendButton.setTitleColor(.primary, for: .normal)
+     
+     messageInputBar.delegate = self
+     messagesCollectionView.messagesDataSource = self
+     messagesCollectionView.messagesLayoutDelegate = self
+     messagesCollectionView.messagesDisplayDelegate = self
+     
 
     // 1
     let cameraItem = InputBarButtonItem(type: .system)
@@ -147,18 +160,7 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
     
     // 3
     messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false)
-
-    navigationItem.largeTitleDisplayMode = .never
     
-    maintainPositionOnKeyboardFrameChanged = true
-    messageInputBar.inputTextView.tintColor = .primary
-    messageInputBar.sendButton.setTitleColor(.primary, for: .normal)
-    
-    messageInputBar.delegate = self
-    messagesCollectionView.messagesDataSource = self
-    messagesCollectionView.messagesLayoutDelegate = self
-    messagesCollectionView.messagesDisplayDelegate = self
-
   }
   
   // MARK: - Actions
