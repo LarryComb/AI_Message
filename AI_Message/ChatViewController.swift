@@ -64,7 +64,7 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
   private let user: User
   private let channel: Channel
   
-  private var isSendingPhoto = false {
+  private var isSendingPhoto = true {
     didSet {
       DispatchQueue.main.async {
         self.messageInputBar.leftStackViewItems.forEach { item in
@@ -164,7 +164,7 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
   }
   
   // MARK: - Actions
-  
+    // TODO: Fix Error:Code=13 "query cancelled" UserInfo={NSLocalizedDescription=query cancelled}
   @objc private func cameraButtonPressed() {
     let picker = UIImagePickerController()
     picker.delegate = self
@@ -177,7 +177,15 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
     
     present(picker, animated: true, completion: nil)
   }
-
+    
+    // TODO: Erase once camera is fixed
+    /*@objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+     let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+     image = chosenImage
+     self.performSegue(withIdentifier: "ShowEditView", sender: self)
+     dismiss(animated: true, completion: nil)
+     }
+     */
   
   // MARK: - Helpers
   
@@ -457,6 +465,11 @@ extension ChatViewController: MessageInputBarDelegate {
     
     // send to watson
     sendMessageToWatson(text)
+    
+    // send photo to watson
+    //sendPhoto(UIImage)
+    
+
   }
 
 }
@@ -504,6 +517,16 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         _ = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.ballScaleRipple)
     }
+    
+    // TODO: Erase once camera is fixed
+    /*@objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+     let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+     image = chosenImage
+     self.performSegue(withIdentifier: "ShowEditView", sender: self)
+     dismiss(animated: true, completion: nil)
+     }
+     */
+    
     
     // Method to set up messages kit data sources and delegates + configure
     func setupMessagesKit() {
@@ -716,18 +739,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                 
                 self.save(message)
 
-                /*
-                DispatchQueue.main.async {
-                    
-                    let attributedText = NSAttributedString(string: watsonMessage, attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.blue])
-                    let id = UUID().uuidString
-                    let message = AssistantMessages(attributedText: attributedText, sender: self.watson, messageId: id, date: Date())
-                    self.messageList.append(message)
-                    inputBar.inputTextView.text = String()
-                    self.messagesCollectionView.insertSections([self.messageList.count - 1])
-                    self.messagesCollectionView.scrollToBottom()
-                }
-                */
+                
             }
             
         }

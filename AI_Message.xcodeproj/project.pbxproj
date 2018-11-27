@@ -33,6 +33,7 @@
 		469D880B2105805D0063C209 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D880A2105805D0063C209 /* AppDelegate.swift */; };
 		469D880D2105805D0063C209 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D880C2105805D0063C209 /* ViewController.swift */; };
 		469D88102105805D0063C209 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469D880E2105805D0063C209 /* Main.storyboard */; };
+		46B40E8521ACFA0D001B2971 /* PhotoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B40E8421ACFA0D001B2971 /* PhotoDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -76,6 +77,7 @@
 		469D880C2105805D0063C209 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		469D880F2105805D0063C209 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		469D88162105805F0063C209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46B40E8421ACFA0D001B2971 /* PhotoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDelegate.swift; sourceTree = "<group>"; };
 		52E2B2162142FCA4BC62E111 /* Pods-AI_Message.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI_Message.release.xcconfig"; path = "Pods/Target Support Files/Pods-AI_Message/Pods-AI_Message.release.xcconfig"; sourceTree = "<group>"; };
 		53FF423F0758ED586F9C3597 /* Pods_AI_Message.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AI_Message.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C2F98173E7EC599EFFA9027 /* Pods-AI_Message.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI_Message.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AI_Message/Pods-AI_Message.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				46445A7721339D4300060BD6 /* ChannelsViewContoller.swift */,
 				46445A832133C76200060BD6 /* ChatViewController.swift */,
+				46B40E8421ACFA0D001B2971 /* PhotoDelegate.swift */,
 				46445A7B21339E0C00060BD6 /* LoginViewController.swift */,
 				46445A7F2133C5B100060BD6 /* LoginViewController.xib */,
 				46445A7D21339E4600060BD6 /* NavigationController.swift */,
@@ -356,6 +359,7 @@
 				46445A7021339C2700060BD6 /* Channel.swift in Sources */,
 				46445A822133C74500060BD6 /* Message.swift in Sources */,
 				46445A7221339C7300060BD6 /* DatabaseRepresentation.swift in Sources */,
+				46B40E8521ACFA0D001B2971 /* PhotoDelegate.swift in Sources */,
 				46445A6921339B1A00060BD6 /* UIColor+Additions.swift in Sources */,
 				46445A7E21339E4600060BD6 /* NavigationController.swift in Sources */,
 				46445A622133999C00060BD6 /* AppController.swift in Sources */,
