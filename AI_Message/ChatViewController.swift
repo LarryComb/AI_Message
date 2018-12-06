@@ -39,7 +39,7 @@ import NVActivityIndicatorView
 
 
 
-class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
+class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   
     
@@ -178,6 +178,45 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
     present(picker, animated: true, completion: nil)
   }
     
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        // 1
+        if let asset = info[.phAsset] as? PHAsset {
+            let size = CGSize(width: 500, height: 500)
+            PHImageManager.default().requestImage(
+                for: asset,
+                targetSize: size,
+                contentMode: .aspectFit,
+                options: nil) { result, info in
+                    
+                    guard let image = result else {
+                        return
+                    }
+                    
+                    self.sendPhoto(image)
+            }
+            
+            // 2
+        } else if let image = info[.originalImage] as? UIImage {
+            sendPhoto(image)
+            //Add firebase storage here using  a url/data
+            // Track progress of upload image file to storage
+            // If status will be succed then get image url of image from firebase storage
+            // and save it to database
+            // Then your chat roomview controller will recieve new entry in databse and download that image show it in chat room
+            
+            
+            
+            print("imageURL\(image)/")
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
     // TODO: Erase once camera is fixed
     /*@objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
      let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
@@ -201,6 +240,7 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
   }
   
   private func uploadImage(_ image: UIImage, to channel: Channel, completion: @escaping (URL?) -> Void) {
+    print("Image: \(image) Channel: \(channel) ")
     guard let channelID = channel.id else {
       completion(nil)
       return
@@ -217,15 +257,17 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
     
     let imageName = [UUID().uuidString, String(Date().timeIntervalSince1970)].joined()
     storage.child(channelID).child(imageName).putData(data, metadata: metadata) { meta, error in
+        print("Meta; \(meta) Error: \(error) URL: \(meta?.downloadURL)")
         completion(meta?.downloadURL())
     }
   }
   
   private func sendPhoto(_ image: UIImage) {
+    print("Got here 1")
     isSendingPhoto = true
    let apiKey = "CHqCsp-NH68f-sV7QnQAX51ecBE_HWP6YvRRaSKI6gJz"
     // API Version Date to initialize the Assistant API
-    let version = "2018-10-15"
+    let version = "2018-12-15"
     
     let failure = {(error:Error) in
         
@@ -242,7 +284,11 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
     //let recogURL = URL(string: "https://unsplash.it/50/100?image=\(randomNumber)")!
     
     uploadImage(image, to: channel) { [weak self] url in
-      /*guard let _ = self else {
+        print("got here got here \(url)")
+        
+        
+        // TODO: Add Watson Visual Rec
+      guard let _ = self else {
         let visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
         
         visualRecognition.classify(image: image, failure: failure) { classifiedImages in
@@ -269,7 +315,7 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable {
         }
         
         return
-      }*/
+      }
         self?.isSendingPhoto = false
       
       guard let url = url else {
@@ -463,9 +509,15 @@ extension ChatViewController: MessageInputBarDelegate {
     // 3
     inputBar.inputTextView.text = ""
     
+    //4
     // send to watson
     sendMessageToWatson(text)
     
+    //5
+    // save photo to firebase
+    
+    
+    //6
     // send photo to watson
     //sendPhoto(UIImage)
     
@@ -476,9 +528,9 @@ extension ChatViewController: MessageInputBarDelegate {
 
 // MARK: - UIImagePickerControllerDelegate
 
-extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ChatViewController {
   
-  func imagePickerController(_ picker: UIImagePickerController,
+ /* func imagePickerController(_ picker: UIImagePickerController,
                              didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     picker.dismiss(animated: true, completion: nil)
     
@@ -506,7 +558,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
   
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
-  }
+  } */
     // Method to set up the activity progress indicator view
     func instantiateActivityIndicator() {
         let size: CGFloat = 50
@@ -517,16 +569,6 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         _ = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.ballScaleRipple)
     }
-    
-    // TODO: Erase once camera is fixed
-    /*@objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-     let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-     image = chosenImage
-     self.performSegue(withIdentifier: "ShowEditView", sender: self)
-     dismiss(animated: true, completion: nil)
-     }
-     */
-    
     
     // Method to set up messages kit data sources and delegates + configure
     func setupMessagesKit() {

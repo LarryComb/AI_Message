@@ -117,6 +117,35 @@ import Foundation
  
  
  
+ //TODO: These two function below do not exist currently in code - Replace ChatViewController line 166
+ 
+ // New Efforts at a photo picker
+ @objc private func cameraButtonPressed(_ sender: Any) {
+ let picker = UIImagePickerController()
+ picker.delegate = self
+ 
+ let actionSheet = UIAlertController(title: "Camera", message: "Photo Library", preferredStyle: .actionSheet)
+ 
+ actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
+ 
+ if UIImagePickerController.isSourceTypeAvailable(.camera) {
+ picker.sourceType = .camera
+ present(picker, animated: true, completion: nil)
+ } else {
+ print("Camera Not Available") //GOTO picker.sourceType = .photoLibrary
+ 
+ }))
+ actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
+ picker.sourceType = .photoLibrary
+ present(picker, animated: true, completion: nil)
+ }))
+ actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+ 
+ present(picker, animated: true, completion: nil)
+ 
+ }
+ 
+
  
  // TODO: Erase once camera is fixed
  /*@objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
