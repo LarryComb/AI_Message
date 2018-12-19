@@ -274,7 +274,7 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, U
     //NOTE: Was private func
    func sendPhoto(_ image: UIImage) {
     isSendingPhoto = true
-   let apiKey = "CHqCsp-NH68f-sV7QnQAX51ecBE_HWP6YvRRaSKI6gJz"
+   let apiKey = ""
     // API Version Date to initialize the Assistant API
     let version = "2018-12-15"
     
