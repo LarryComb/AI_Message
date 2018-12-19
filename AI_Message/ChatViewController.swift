@@ -162,9 +162,12 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, U
     messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false)
     
   }
-  
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.messagesCollectionView.scrollToBottom()
+    }
   // MARK: - Actions
-    // TODO: Fix Error:Code=13 "query cancelled" UserInfo={NSLocalizedDescription=query cancelled}
+    // TODO: Image Code Here 1
   @objc private func cameraButtonPressed() {
     let picker = UIImagePickerController()
     picker.delegate = self
@@ -195,12 +198,15 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, U
                         return
                     }
                     
+                    print("####About to send photo \(image)")
                     self.sendPhoto(image)
             }
             
             // 2
         } else if let image = info[.originalImage] as? UIImage {
+            print("Sending photo")
             sendPhoto(image)
+            
             //Add firebase storage here using  a url/data
             // Track progress of upload image file to storage
             // If status will be succed then get image url of image from firebase storage
@@ -238,16 +244,18 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, U
       self.messagesCollectionView.scrollToBottom()
     }
   }
-  
-  private func uploadImage(_ image: UIImage, to channel: Channel, completion: @escaping (URL?) -> Void) {
-    print("Image: \(image) Channel: \(channel) ")
+    //TODO: Image Code Here 2
+    //Was private
+   func uploadImage(_ image: UIImage, to channel: Channel, completion: @escaping (URL?) -> Void) {
     guard let channelID = channel.id else {
+        print("Got here 0??")
       completion(nil)
       return
     }
     
     guard let scaledImage = image.scaledToSafeUploadSize,
       let data = scaledImage.jpegData(compressionQuality: 0.4) else {
+        print("Got here 1 ??")
         completion(nil)
         return
     }
@@ -257,13 +265,14 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, U
     
     let imageName = [UUID().uuidString, String(Date().timeIntervalSince1970)].joined()
     storage.child(channelID).child(imageName).putData(data, metadata: metadata) { meta, error in
-        print("Meta; \(meta) Error: \(error) URL: \(meta?.downloadURL)")
+        print("Got here?? 3")
+        print("____", meta, error)
         completion(meta?.downloadURL())
     }
   }
-  
-  private func sendPhoto(_ image: UIImage) {
-    print("Got here 1")
+    //TODO: Image code here 3 This code should be for IBM Visual Recognition
+    //NOTE: Was private func
+   func sendPhoto(_ image: UIImage) {
     isSendingPhoto = true
    let apiKey = "CHqCsp-NH68f-sV7QnQAX51ecBE_HWP6YvRRaSKI6gJz"
     // API Version Date to initialize the Assistant API
@@ -276,7 +285,6 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, U
             //button.isEnabled = true
         }
         
-        
         print(error)
         
     }
@@ -284,39 +292,32 @@ class ChatViewController: MessagesViewController, NVActivityIndicatorViewable, U
     //let recogURL = URL(string: "https://unsplash.it/50/100?image=\(randomNumber)")!
     
     uploadImage(image, to: channel) { [weak self] url in
-        print("got here got here \(url)")
         
         
-        // TODO: Add Watson Visual Rec
-      guard let _ = self else {
+        
+      // TODO: Fix Add Watson Visual Recognition image is not being sent to Watson
+        print("#### url Image: \(image) URL: \(url)")
+      if let _ = self, let url = url {
         let visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
-        
-        visualRecognition.classify(image: image, failure: failure) { classifiedImages in
-            
+        print("####STARTING RECOG")
+        visualRecognition.classify(imagesFile: url) { classifiedImages in
+            print("##### CLASSDIFIED IMAGES \(classifiedImages)")
             if let classifiedImage = classifiedImages.images.first {
-                print(classifiedImage.classifiers)
+                print("####  classifiedImage", classifiedImage.classifiers)
                 
                 if let classification = classifiedImage.classifiers.first?.classes.first {
                     DispatchQueue.main.async {
-                        //self.navigationItem.title = classification
-                        //button.isEnabled = true
                     }
                 }
                  print("Successful IBM Match")
-                
             }else{
+                print("#### Else statement")
                 DispatchQueue.main.async {
-                    //self.navigationItem.title = "Could not be determined"
-                    //button.isEnabled = true
                 }
             }
-            
-            
         }
-        
-        return
       }
-        self?.isSendingPhoto = false
+        self?.isSendingPhoto = true   // default false 
       
       guard let url = url else {
         return
@@ -416,13 +417,13 @@ extension ChatViewController: MessagesDisplayDelegate {
     // 2
     return false
   }
-  
+  //Text Box Styling
   func messageStyle(for message: MessageType, at indexPath: IndexPath,
                     in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
     
     let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
     
-    // 3
+    // 3 Creates Bubble Tail to Text Box
     return .bubbleTail(corner, .curved)
   }
 }
@@ -517,10 +518,9 @@ extension ChatViewController: MessageInputBarDelegate {
     // save photo to firebase
     
     
-    //6
+    //6 TODO: Here is were I think the problem orginates
     // send photo to watson
     //sendPhoto(UIImage)
-    
 
   }
 
@@ -529,8 +529,8 @@ extension ChatViewController: MessageInputBarDelegate {
 // MARK: - UIImagePickerControllerDelegate
 
 extension ChatViewController {
-  
- /* func imagePickerController(_ picker: UIImagePickerController,
+  /*
+  func imagePickerController(_ picker: UIImagePickerController,
                              didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     picker.dismiss(animated: true, completion: nil)
     
@@ -559,6 +559,8 @@ extension ChatViewController {
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
   } */
+    
+    
     // Method to set up the activity progress indicator view
     func instantiateActivityIndicator() {
         let size: CGFloat = 50
@@ -583,7 +585,7 @@ extension ChatViewController {
         // Configure views
         messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
         scrollsToBottomOnKeybordBeginsEditing = true // default false
-        maintainPositionOnKeyboardFrameChanged = true // default false
+        maintainPositionOnKeyboardFrameChanged = false // default false
     }
   
     func instantiateAssistant() {
@@ -596,13 +598,13 @@ extension ChatViewController {
         guard let configurationPath = Bundle.main.path(forResource: "BMSCredentials", ofType: "plist"),
             let configuration = NSDictionary(contentsOfFile: configurationPath) else {
                 
-                //showAlert(.missingCredentialsPlist)
+            showAlert(.missingCredentialsPlist)
                 return
         }
         
         
         // API Version Date to initialize the Assistant API
-        let date = "2018-10-12"
+        let date = "2018-12-12"
         
         // Set the Watson credentials for Assistant service from the BMSCredentials.plist
         // If using IAM authentication
@@ -650,7 +652,7 @@ extension ChatViewController {
         } else {
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-                NVActivityIndicatorPresenter.sharedInstance.setMessage("Checking for Training...")
+                NVActivityIndicatorPresenter.sharedInstance.setMessage("Building Conversation Topics...")
             }
             
             // Retrieve a list of Workspaces that have been trained and default to the first one
@@ -718,7 +720,7 @@ extension ChatViewController {
     
     func retrieveFirstMessage() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-            NVActivityIndicatorPresenter.sharedInstance.setMessage("Talking to Watson...")
+            NVActivityIndicatorPresenter.sharedInstance.setMessage("Talking to Kissiko...")
         }
         
         guard let assistant = self.assistant else {
@@ -743,6 +745,7 @@ extension ChatViewController {
                 
                 self.save(message)
 
+                //TODO Add about 3 seconds to the response time to give a more human feel
                 DispatchQueue.main.async {
                     self.stopAnimating()
                 }
@@ -787,7 +790,46 @@ extension ChatViewController {
         }
 
     }
-
+    //TODO func sendPhototoWatson
+//    func sendPhotoWatson ( _ image : UIImage ) {
+//
+//        guard let assistant = self.assistant else {
+//            showAlert(.missingAssistantCredentials)
+//            return
+//        }
+//
+//        guard let workspace = workspaceID else {
+//            showAlert(.noWorkspaceId)
+//            return
+//        }
+//
+//        let cleanText = image
+//            //.trimmingCharacters(in: .whitespacesAndNewlines)
+//            //.replacingOccurrences(of: "\n", with: ". ")
+//
+//        let messageRequest = MessageRequest(input: InputData( :uploadImage), context: self.context)
+//
+//        // Call the Assistant API
+//        assistant.message(workspaceID: workspace, request: messageRequest, failure: failAssistantWithError) { response in
+//
+//            for watsonMessage in response.output.text {
+//                guard !watsonMessage.isEmpty else {
+//                    continue
+//                }
+//                // Set current context
+//                self.context = response.context
+//                let message = Message(watsonMessage: watsonMessage)
+//
+//                self.save(message)
+//
+//
+//            }
+//
+//        }
+//
+//    }
+    
+    
 }
 
 
